@@ -66,28 +66,31 @@ class LoginViewController: UIViewController {
         
         // call firebase auth to login
         showActivityIndicator()
-        Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] (result, error) in
+        AuthManager.shared.signIn(email: email, password: password) { [weak self] (result: Result<FirebaseAuth.User, Error>) in
             guard let strongSelf = self else { return }
             strongSelf.hideActivityIndicator()
-            if let error = error as NSError? {
-                // Use the error code to present more detailed error information
-                // TODO: figure out how to access the underlying error code!!
+            
+            switch result {
+            case .failure(let error as NSError):
+                // Handle the error more specifically if needed
+                // TODO: figure out how to access the underlying error.
                 var errorMessage = "Invalid email or wrong password!"
                 if error.code == AuthErrorCode.userNotFound.rawValue {
-                    errorMessage = "No user found with this email. Please sign up."
+                    errorMessage = "No user found with this email. Please register first."
                 } else if error.code == AuthErrorCode.wrongPassword.rawValue {
                     errorMessage = "Incorrect password. Please try again."
                 } else {
-                    print(error)
-                    // errorMessage = error.localizedDescription
+                    // Handle other possible errors
+                    errorMessage = error.localizedDescription
                 }
                 AlertUtil.showErrorAlert(viewController: strongSelf, title: "Error!", errorMessage: errorMessage)
-            } else {
+
+            case .success(let user):
                 // The user is signed in, perform any operations after successful sign-in
+                print("Sign in successful for user: \(user.email ?? "No email")")
                 strongSelf.transitionToChatsScreen()
-                print("Sign in successful.")
             }
-        })
+        }
     }
     
     func transitionToChatsScreen() {
@@ -106,7 +109,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController:ProgressSpinnerDelegate {
+extension LoginViewController: ProgressSpinnerDelegate {
     func showActivityIndicator() {
         addChild(childProgressView)
         view.addSubview(childProgressView.view)

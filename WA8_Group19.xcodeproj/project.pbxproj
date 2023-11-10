@@ -20,6 +20,14 @@
 		FC03DB2F2AFD837900A1572C /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB2E2AFD837900A1572C /* ProgressSpinnerDelegate.swift */; };
 		FC03DB322AFDAEA500A1572C /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB312AFDAEA500A1572C /* DBManager.swift */; };
 		FC03DB342AFDB3B400A1572C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB332AFDB3B400A1572C /* User.swift */; };
+		FC03DB362AFDFE9900A1572C /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB352AFDFE9900A1572C /* ConversationsViewController.swift */; };
+		FC03DB382AFDFEAC00A1572C /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB372AFDFEAC00A1572C /* ConversationView.swift */; };
+		FC03DB3A2AFDFEC200A1572C /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB392AFDFEC200A1572C /* ConversationTableViewCell.swift */; };
+		FC03DB3C2AFE051600A1572C /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB3B2AFE051600A1572C /* Conversation.swift */; };
+		FC03DB3F2AFED1F600A1572C /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB3E2AFED1F600A1572C /* AuthManager.swift */; };
+		FC03DB412AFED6C600A1572C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB402AFED6C600A1572C /* ProfileView.swift */; };
+		FC03DB432AFED6D300A1572C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB422AFED6D300A1572C /* ProfileViewController.swift */; };
+		FC03DB462AFEE0BC00A1572C /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB452AFEE0BC00A1572C /* DateFormatter.swift */; };
 		FC2F15D12AFC16B100867C1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F15D02AFC16B100867C1F /* AppDelegate.swift */; };
 		FC2F15D32AFC16B100867C1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F15D22AFC16B100867C1F /* SceneDelegate.swift */; };
 		FC2F15D82AFC16B100867C1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC2F15D62AFC16B100867C1F /* Main.storyboard */; };
@@ -42,6 +50,14 @@
 		FC03DB2E2AFD837900A1572C /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
 		FC03DB312AFDAEA500A1572C /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		FC03DB332AFDB3B400A1572C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FC03DB352AFDFE9900A1572C /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
+		FC03DB372AFDFEAC00A1572C /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		FC03DB392AFDFEC200A1572C /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		FC03DB3B2AFE051600A1572C /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		FC03DB3E2AFED1F600A1572C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		FC03DB402AFED6C600A1572C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		FC03DB422AFED6D300A1572C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FC03DB452AFEE0BC00A1572C /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		FC2F15CD2AFC16B100867C1F /* WA8_Group19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WA8_Group19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2F15D02AFC16B100867C1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC2F15D22AFC16B100867C1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +113,22 @@
 			path = DataBase;
 			sourceTree = "<group>";
 		};
+		FC03DB3D2AFED1E400A1572C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DB3E2AFED1F600A1572C /* AuthManager.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		FC03DB442AFEE08600A1572C /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DB452AFEE0BC00A1572C /* DateFormatter.swift */,
+			);
+			path = Formatter;
+			sourceTree = "<group>";
+		};
 		FC2F15C42AFC16B000867C1F = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				FC03DB332AFDB3B400A1572C /* User.swift */,
+				FC03DB3B2AFE051600A1572C /* Conversation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -139,6 +172,8 @@
 		FC2F16202AFCAEE200867C1F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				FC03DB442AFEE08600A1572C /* Formatter */,
+				FC03DB3D2AFED1E400A1572C /* Auth */,
 				FC03DB302AFDAE8C00A1572C /* DataBase */,
 				FC03DB2B2AFD82FB00A1572C /* ProgressIndicator */,
 				FC2F162E2AFCB73900867C1F /* AlertUtil.swift */,
@@ -171,9 +206,9 @@
 			isa = PBXGroup;
 			children = (
 				FC2F16292AFCB54500867C1F /* WelcomeScreen */,
-				FC2F16282AFCB24100867C1F /* ChatsScreen */,
+				FC2F16282AFCB24100867C1F /* ConversationsScreen */,
 				FC2F16272AFCB22600867C1F /* ProfileScreen */,
-				FC2F16262AFCB20700867C1F /* NewChatScreen */,
+				FC2F16262AFCB20700867C1F /* NewConversationScreen */,
 				FC2F16252AFCAFF500867C1F /* RegisterScreen */,
 				FC2F16242AFCAFE400867C1F /* LoginScreen */,
 			);
@@ -198,25 +233,30 @@
 			path = RegisterScreen;
 			sourceTree = "<group>";
 		};
-		FC2F16262AFCB20700867C1F /* NewChatScreen */ = {
+		FC2F16262AFCB20700867C1F /* NewConversationScreen */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = NewChatScreen;
+			path = NewConversationScreen;
 			sourceTree = "<group>";
 		};
 		FC2F16272AFCB22600867C1F /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FC03DB402AFED6C600A1572C /* ProfileView.swift */,
+				FC03DB422AFED6D300A1572C /* ProfileViewController.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
-		FC2F16282AFCB24100867C1F /* ChatsScreen */ = {
+		FC2F16282AFCB24100867C1F /* ConversationsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FC03DB352AFDFE9900A1572C /* ConversationsViewController.swift */,
+				FC03DB372AFDFEAC00A1572C /* ConversationView.swift */,
+				FC03DB392AFDFEC200A1572C /* ConversationTableViewCell.swift */,
 			);
-			path = ChatsScreen;
+			path = ConversationsScreen;
 			sourceTree = "<group>";
 		};
 		FC2F16292AFCB54500867C1F /* WelcomeScreen */ = {
@@ -316,14 +356,22 @@
 				FC2F16332AFCB85D00867C1F /* UIElementUtil.swift in Sources */,
 				FC2F162B2AFCB6DD00867C1F /* WelcomeViewController.swift in Sources */,
 				FC03DB2D2AFD834100A1572C /* ProgressSpinnerViewController.swift in Sources */,
+				FC03DB432AFED6D300A1572C /* ProfileViewController.swift in Sources */,
+				FC03DB462AFEE0BC00A1572C /* DateFormatter.swift in Sources */,
 				FC2F15D12AFC16B100867C1F /* AppDelegate.swift in Sources */,
 				FC03DB2F2AFD837900A1572C /* ProgressSpinnerDelegate.swift in Sources */,
+				FC03DB3A2AFDFEC200A1572C /* ConversationTableViewCell.swift in Sources */,
+				FC03DB3F2AFED1F600A1572C /* AuthManager.swift in Sources */,
 				FC03DB342AFDB3B400A1572C /* User.swift in Sources */,
+				FC03DB3C2AFE051600A1572C /* Conversation.swift in Sources */,
 				FC2F15D32AFC16B100867C1F /* SceneDelegate.swift in Sources */,
 				FC2F162F2AFCB73900867C1F /* AlertUtil.swift in Sources */,
+				FC03DB382AFDFEAC00A1572C /* ConversationView.swift in Sources */,
+				FC03DB362AFDFE9900A1572C /* ConversationsViewController.swift in Sources */,
 				FC2F162D2AFCB6EC00867C1F /* WelcomeView.swift in Sources */,
 				FC03DB242AFD4B1E00A1572C /* LoginView.swift in Sources */,
 				FC2F16312AFCB80E00867C1F /* Constants.swift in Sources */,
+				FC03DB412AFED6C600A1572C /* ProfileView.swift in Sources */,
 				FC03DB322AFDAEA500A1572C /* DBManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

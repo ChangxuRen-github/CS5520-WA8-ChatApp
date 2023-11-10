@@ -168,7 +168,7 @@ class RegisterViewController: UIViewController {
     }
 }
 
-extension RegisterViewController:ProgressSpinnerDelegate {
+extension RegisterViewController: ProgressSpinnerDelegate {
     func showActivityIndicator() {
         addChild(childProgressView)
         view.addSubview(childProgressView.view)
