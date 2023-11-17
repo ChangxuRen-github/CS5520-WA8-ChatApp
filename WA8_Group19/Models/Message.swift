@@ -14,4 +14,7 @@ struct MessageDAO: Codable {
     let senderId: String
     let senderName: String
     let content: String
+    // this is used to indicate the current message is an image
+    var isImage: Bool = false
+    var imageURL: String?
 }

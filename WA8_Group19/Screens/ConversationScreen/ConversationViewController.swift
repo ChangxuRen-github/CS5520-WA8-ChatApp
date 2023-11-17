@@ -23,6 +23,13 @@ struct Sender: SenderType {
     var displayName: String
 }
 
+struct Media: MediaItem {
+    var url: URL?
+    var image: UIImage?
+    var placeholderImage: UIImage
+    var size: CGSize
+}
+
 class ConversationViewController: MessagesViewController {
     // current conversation
     let conversation: Conversation
@@ -56,8 +63,8 @@ class ConversationViewController: MessagesViewController {
         // ******************** DEBUG END****************************
 
         doDelegations()
+        setupMediaInputButton()
         setupMessagesListener()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,12 +119,34 @@ class ConversationViewController: MessagesViewController {
                 }
     }
     
+    // TODO: this needs modification
     private func convertDAOToMessageKitMessage(_ messageDAO: MessageDAO) -> Message {
         let sender = Sender(senderId: messageDAO.senderId, displayName: messageDAO.senderName)
-        return Message(sender: sender,
-                       messageId: messageDAO.uuid ?? UUID().uuidString,
-                       sentDate: messageDAO.timestamp ?? Date(),
-                       kind: .text(messageDAO.content))
+        if messageDAO.isImage {
+            guard let url = URL(string: messageDAO.imageURL!),
+                let placeholder = UIImage(systemName: "plus") else {
+                return Message(sender: sender,
+                               messageId: messageDAO.uuid ?? UUID().uuidString,
+                               sentDate: messageDAO.timestamp ?? Date(),
+                               kind: .text(messageDAO.content))
+            }
+
+            let size = CGSize(width: 200, height: 200)
+            let media = Media(url: url,
+                              image: nil,
+                              placeholderImage: placeholder,
+                              size: size)
+            
+            return Message(sender: sender,
+                           messageId: messageDAO.uuid ?? UUID().uuidString,
+                           sentDate: messageDAO.timestamp ?? Date(),
+                           kind: .photo(media))
+        } else {
+            return Message(sender: sender,
+                           messageId: messageDAO.uuid ?? UUID().uuidString,
+                           sentDate: messageDAO.timestamp ?? Date(),
+                           kind: .text(messageDAO.content))
+        }
     }
     
     deinit {
@@ -131,6 +160,7 @@ extension ConversationViewController: MessagesDataSource, MessagesLayoutDelegate
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+        messagesCollectionView.messageCellDelegate = self
         messageInputBar.delegate = self
     }
     
@@ -200,6 +230,44 @@ extension ConversationViewController: MessagesDataSource, MessagesLayoutDelegate
       return .bubbleTail(corner, .curved)
     }
 
+    // configure how message cell display image
+    func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        guard let message = message as? Message else {
+            return
+        }
+
+        switch message.kind {
+        case .photo(let media):
+            guard let imageUrl = media.url else {
+                return
+            }
+            imageView.sd_setImage(with: imageUrl, completed: nil)
+        default:
+            break
+        }
+    }
+}
+
+extension ConversationViewController: MessageCellDelegate {
+    // open MessageImageViewScreen when tap on the image message
+    func didTapImage(in cell: MessageCollectionViewCell) {
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
+            return
+        }
+
+        let message = messages[indexPath.section]
+
+        switch message.kind {
+        case .photo(let media):
+            guard let imageUrl = media.url else {
+                return
+            }
+            let messageImageViewScreenViewController = MessageImageViewScreenViewController(with: imageUrl)
+            navigationController?.pushViewController(messageImageViewScreenViewController, animated: true)
+        default:
+            break
+        }
+    }
 }
 
 // - Input Bar management
@@ -233,6 +301,98 @@ extension ConversationViewController: InputBarAccessoryViewDelegate {
                 AlertUtil.showErrorAlert(viewController: self,
                                          title: "Error!",
                                          errorMessage: "Failed to send message, please try again!")
+            }
+        }
+    }
+}
+
+// -Media input management
+extension ConversationViewController {
+    // MARK: set up the media message input button. Right now, we can attach photo.
+    private func setupMediaInputButton() {
+        let button = InputBarButtonItem()
+        button.setSize(CGSize(width: 35, height: 35), animated: false)
+        button.setImage(UIImage(systemName: "paperclip.badge.ellipsis"), for: .normal)
+        button.onTouchUpInside { [weak self] _ in
+            self?.presentInputActionSheet()
+        }
+        messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
+        messageInputBar.setStackViewItems([button], forStack: .left, animated: false)
+    }
+    
+    private func presentInputActionSheet() {
+        let actionSheet = UIAlertController(title: "Attach Media",
+                                            message: "What would you like to attach?",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Photo", style: .default, handler: { [weak self] _ in
+            self?.presentPhotoInputActionsheet()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(actionSheet, animated: true)
+    }
+    
+    private func presentPhotoInputActionsheet() {
+        let actionSheet = UIAlertController(title: "Attach Photo",
+                                            message: "Where would you like to attach a photo from",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { [weak self] _ in
+
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.allowsEditing = true
+            self?.present(picker, animated: true)
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(actionSheet, animated: true)
+    }
+}
+
+// -Image picker
+extension ConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let conversationId = conversation.uuid else {
+            print("Error: no conversation id found.")
+            return
+        }
+        print("\(currentSender.displayName) is sending a image message at \(Date())")
+        
+        let newMessage = MessageDAO(uuid: nil,
+                                    timestamp: Date(),
+                                    senderId: thisUser.uid,
+                                    senderName: thisSender.displayName,
+                                    content: "Image message.",
+                                    isImage: true)
+        
+        if let image = info[.editedImage] as? UIImage {
+            self.showActivityIndicator()
+            DBManager.dbManager.addImageMessage(conversationId: conversationId, message: newMessage, image: image) { success in
+                self.hideActivityIndicator()
+                if success {
+                    print("Image message successfully added.")
+                } else {
+                    print("Failed to add image message.")
+                    AlertUtil.showErrorAlert(viewController: self,
+                                             title: "Error!",
+                                             errorMessage: "Failed to send an image message, please try again!")
+                }
             }
         }
     }

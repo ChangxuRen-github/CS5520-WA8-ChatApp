@@ -17,6 +17,7 @@ final class DBManager {
     let MESSAGES_SUBCOLLECTION = "messages"
     let USER_COLLECTION = "Users"
     let USER_PROFILE_IMAGE = "UserProfileImages"
+    let CONVERSATION_IMAGES = "ConversationImages"
     
     // A public share dbManager instance
     public static let dbManager = DBManager()
@@ -263,6 +264,22 @@ extension DBManager {
         }
     }
     
+    // create a new image message
+    public func addImageMessage(conversationId: String, message: MessageDAO, image: UIImage, completion: @escaping (Bool) -> Void) {
+         uploadMessageImage(image) { [weak self] uploadResult in
+             switch uploadResult {
+             case .success(let url):
+                 // Create a new message with the image URL
+                 var newMessage = message
+                 newMessage.imageURL = url
+                 self?.addMessage(conversationId: conversationId, message: newMessage, completion: completion)
+             case .failure(let error):
+                 print("Error: Uploading message image failed with \(error)")
+                 completion(false)
+             }
+         }
+     }
+    
     // Add a new conversationId to a user's conversationIds array
     // TODO: not sure if this is still needed. Consider remove it before release. C.Ren
     public func addConversationIdToUser(userId: String, conversationId: String, completion: @escaping (Bool) -> Void) {
@@ -326,5 +343,28 @@ extension DBManager {
             }
         }
         task.resume()
+    }
+    
+    private func uploadMessageImage(_ image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+        if let imageData = image.jpegData(compressionQuality: 80) {
+            let storageRef = storage.reference()
+            let imagesRepo = storageRef.child(CONVERSATION_IMAGES)
+            let imageRef = imagesRepo.child("\(NSUUID().uuidString).jpg")
+            
+            imageRef.putData(imageData, metadata: nil) { metadata, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                imageRef.downloadURL { url, error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else if let url = url {
+                        completion(.success(url.absoluteString))
+                    }
+                }
+            }
+        }
     }
 }
