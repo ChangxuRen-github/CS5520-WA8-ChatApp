@@ -135,4 +135,11 @@ class UIElementUtil {
         view.addSubview(textView)
         return textView
     }
+    
+    // create customized search bar
+    static func createSearchBar(placeHolder: String) -> UISearchBar {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = placeHolder
+        return searchBar
+    }
 }

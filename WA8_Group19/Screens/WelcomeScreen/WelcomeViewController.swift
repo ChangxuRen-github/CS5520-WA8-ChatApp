@@ -17,7 +17,7 @@ class WelcomeViewController: UIViewController {
     let welcomeView = WelcomeView()
     
     // firebase authentication
-    var currentUser: FirebaseAuth.User?
+    var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     
     // add welcome view to view controller
     override func loadView() {
@@ -26,39 +26,46 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // schedule the function call with a delay
-        DispatchQueue.global().asyncAfter(deadline: .now() + DELAY_TIME, execute: self.checkAndDoTransition)
-    }
-    
-    func checkAndDoTransition() {
-        if currentUser != nil {
-            // if the current user already logged in, transition to chats
-            DispatchQueue.main.async {
-                self.transitionToNotesPage()
+        // Add auth state listener with delay
+        authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+            guard let self = self else {
+                return
             }
-        } else {
-            // if the current user has not logged in, transition to login page
-            DispatchQueue.main.async {
-                self.transitionToLoginPage()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.DELAY_TIME) {
+                if user != nil {
+                    self.transitionToConversationsScreen()
+                } else {
+                    self.transitionToLoginPage()
+                }
             }
         }
     }
     
-    func transitionToNotesPage() {
-        print("Transition to chats screen.")
-        //let notesPageViewController = NotesPageViewController()
-        //var viewControllers = self.navigationController!.viewControllers
-        //viewControllers.removeAll()
-        //viewControllers.append(notesPageViewController)
-        //self.navigationController?.setViewControllers(viewControllers, animated: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        // Remove auth state listener
+        if let handle = authStateDidChangeListenerHandle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
+    }
+    
+    func transitionToConversationsScreen() {
+        print("Transition to conversations screen.")
+        let conversationsViewController = ConversationsViewController()
+        var viewControllers = self.navigationController!.viewControllers
+        viewControllers.removeAll()
+        viewControllers.append(conversationsViewController)
+        self.navigationController?.setViewControllers(viewControllers, animated: true)
     }
     
     func transitionToLoginPage() {
         print("Transition to Login screen.")
-        //let loginSignupPageViewController = LoginSignupPageViewController()
-        //var viewControllers = self.navigationController!.viewControllers
-        //viewControllers.removeAll()
-        //viewControllers.append(loginSignupPageViewController)
-        //self.navigationController?.setViewControllers(viewControllers, animated: true)
+        let loginViewController = LoginViewController()
+        var viewControllers = self.navigationController!.viewControllers
+        viewControllers.removeAll()
+        viewControllers.append(loginViewController)
+        self.navigationController?.setViewControllers(viewControllers, animated: true)
     }
 }

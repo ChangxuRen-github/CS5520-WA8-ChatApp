@@ -21,13 +21,19 @@
 		FC03DB322AFDAEA500A1572C /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB312AFDAEA500A1572C /* DBManager.swift */; };
 		FC03DB342AFDB3B400A1572C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB332AFDB3B400A1572C /* User.swift */; };
 		FC03DB362AFDFE9900A1572C /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB352AFDFE9900A1572C /* ConversationsViewController.swift */; };
-		FC03DB382AFDFEAC00A1572C /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB372AFDFEAC00A1572C /* ConversationView.swift */; };
-		FC03DB3A2AFDFEC200A1572C /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB392AFDFEC200A1572C /* ConversationTableViewCell.swift */; };
+		FC03DB382AFDFEAC00A1572C /* ConversationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB372AFDFEAC00A1572C /* ConversationsView.swift */; };
+		FC03DB3A2AFDFEC200A1572C /* ConversationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB392AFDFEC200A1572C /* ConversationsTableViewCell.swift */; };
 		FC03DB3C2AFE051600A1572C /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB3B2AFE051600A1572C /* Conversation.swift */; };
 		FC03DB3F2AFED1F600A1572C /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB3E2AFED1F600A1572C /* AuthManager.swift */; };
 		FC03DB412AFED6C600A1572C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB402AFED6C600A1572C /* ProfileView.swift */; };
 		FC03DB432AFED6D300A1572C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB422AFED6D300A1572C /* ProfileViewController.swift */; };
 		FC03DB462AFEE0BC00A1572C /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB452AFEE0BC00A1572C /* DateFormatter.swift */; };
+		FC03DB492AFEFAB600A1572C /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = FC03DB482AFEFAB600A1572C /* MessageKit */; };
+		FC03DB4C2AFEFAFB00A1572C /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB4B2AFEFAFB00A1572C /* ConversationViewController.swift */; };
+		FC03DB4E2AFF1EE700A1572C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB4D2AFF1EE700A1572C /* Message.swift */; };
+		FC03DB502AFF2A9400A1572C /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB4F2AFF2A9400A1572C /* NewConversationViewController.swift */; };
+		FC03DB522AFF2AA600A1572C /* NewConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB512AFF2AA600A1572C /* NewConversationView.swift */; };
+		FC03DB542AFF2EFE00A1572C /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DB532AFF2EFE00A1572C /* SearchResultTableViewCell.swift */; };
 		FC2F15D12AFC16B100867C1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F15D02AFC16B100867C1F /* AppDelegate.swift */; };
 		FC2F15D32AFC16B100867C1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F15D22AFC16B100867C1F /* SceneDelegate.swift */; };
 		FC2F15D82AFC16B100867C1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC2F15D62AFC16B100867C1F /* Main.storyboard */; };
@@ -51,13 +57,18 @@
 		FC03DB312AFDAEA500A1572C /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		FC03DB332AFDB3B400A1572C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FC03DB352AFDFE9900A1572C /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
-		FC03DB372AFDFEAC00A1572C /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
-		FC03DB392AFDFEC200A1572C /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		FC03DB372AFDFEAC00A1572C /* ConversationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsView.swift; sourceTree = "<group>"; };
+		FC03DB392AFDFEC200A1572C /* ConversationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsTableViewCell.swift; sourceTree = "<group>"; };
 		FC03DB3B2AFE051600A1572C /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		FC03DB3E2AFED1F600A1572C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		FC03DB402AFED6C600A1572C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FC03DB422AFED6D300A1572C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FC03DB452AFEE0BC00A1572C /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		FC03DB4B2AFEFAFB00A1572C /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		FC03DB4D2AFF1EE700A1572C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		FC03DB4F2AFF2A9400A1572C /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
+		FC03DB512AFF2AA600A1572C /* NewConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationView.swift; sourceTree = "<group>"; };
+		FC03DB532AFF2EFE00A1572C /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		FC2F15CD2AFC16B100867C1F /* WA8_Group19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WA8_Group19.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2F15D02AFC16B100867C1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC2F15D22AFC16B100867C1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +92,7 @@
 				FC03DB1C2AFD434100A1572C /* FirebaseAnalytics in Frameworks */,
 				FC03DB1A2AFD42F100A1572C /* FirebaseAuth in Frameworks */,
 				FC03DB1E2AFD434100A1572C /* FirebaseFirestore in Frameworks */,
+				FC03DB492AFEFAB600A1572C /* MessageKit in Frameworks */,
 				FC03DB222AFD434100A1572C /* FirebaseStorage in Frameworks */,
 				FC03DB202AFD434100A1572C /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -129,6 +141,14 @@
 			path = Formatter;
 			sourceTree = "<group>";
 		};
+		FC03DB4A2AFEFAE100A1572C /* ConversationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DB4B2AFEFAFB00A1572C /* ConversationViewController.swift */,
+			);
+			path = ConversationScreen;
+			sourceTree = "<group>";
+		};
 		FC2F15C42AFC16B000867C1F = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +185,7 @@
 			children = (
 				FC03DB332AFDB3B400A1572C /* User.swift */,
 				FC03DB3B2AFE051600A1572C /* Conversation.swift */,
+				FC03DB4D2AFF1EE700A1572C /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +226,7 @@
 		FC2F16232AFCAFB600867C1F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				FC03DB4A2AFEFAE100A1572C /* ConversationScreen */,
 				FC2F16292AFCB54500867C1F /* WelcomeScreen */,
 				FC2F16282AFCB24100867C1F /* ConversationsScreen */,
 				FC2F16272AFCB22600867C1F /* ProfileScreen */,
@@ -236,6 +258,9 @@
 		FC2F16262AFCB20700867C1F /* NewConversationScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FC03DB4F2AFF2A9400A1572C /* NewConversationViewController.swift */,
+				FC03DB512AFF2AA600A1572C /* NewConversationView.swift */,
+				FC03DB532AFF2EFE00A1572C /* SearchResultTableViewCell.swift */,
 			);
 			path = NewConversationScreen;
 			sourceTree = "<group>";
@@ -253,8 +278,8 @@
 			isa = PBXGroup;
 			children = (
 				FC03DB352AFDFE9900A1572C /* ConversationsViewController.swift */,
-				FC03DB372AFDFEAC00A1572C /* ConversationView.swift */,
-				FC03DB392AFDFEC200A1572C /* ConversationTableViewCell.swift */,
+				FC03DB372AFDFEAC00A1572C /* ConversationsView.swift */,
+				FC03DB392AFDFEC200A1572C /* ConversationsTableViewCell.swift */,
 			);
 			path = ConversationsScreen;
 			sourceTree = "<group>";
@@ -290,6 +315,7 @@
 				FC03DB1D2AFD434100A1572C /* FirebaseFirestore */,
 				FC03DB1F2AFD434100A1572C /* FirebaseFirestoreSwift */,
 				FC03DB212AFD434100A1572C /* FirebaseStorage */,
+				FC03DB482AFEFAB600A1572C /* MessageKit */,
 			);
 			productName = WA8_Group19;
 			productReference = FC2F15CD2AFC16B100867C1F /* WA8_Group19.app */;
@@ -321,6 +347,7 @@
 			mainGroup = FC2F15C42AFC16B000867C1F;
 			packageReferences = (
 				FC03DB092AFD418300A1572C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FC03DB472AFEFAB600A1572C /* XCRemoteSwiftPackageReference "MessageKit" */,
 			);
 			productRefGroup = FC2F15CE2AFC16B100867C1F /* Products */;
 			projectDirPath = "";
@@ -350,23 +377,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC03DB522AFF2AA600A1572C /* NewConversationView.swift in Sources */,
 				FC03DB2A2AFD4B5000A1572C /* RegisterView.swift in Sources */,
 				FC03DB262AFD4B3000A1572C /* LoginViewController.swift in Sources */,
+				FC03DB4C2AFEFAFB00A1572C /* ConversationViewController.swift in Sources */,
 				FC03DB282AFD4B3E00A1572C /* RegisterViewController.swift in Sources */,
 				FC2F16332AFCB85D00867C1F /* UIElementUtil.swift in Sources */,
 				FC2F162B2AFCB6DD00867C1F /* WelcomeViewController.swift in Sources */,
 				FC03DB2D2AFD834100A1572C /* ProgressSpinnerViewController.swift in Sources */,
+				FC03DB4E2AFF1EE700A1572C /* Message.swift in Sources */,
 				FC03DB432AFED6D300A1572C /* ProfileViewController.swift in Sources */,
 				FC03DB462AFEE0BC00A1572C /* DateFormatter.swift in Sources */,
 				FC2F15D12AFC16B100867C1F /* AppDelegate.swift in Sources */,
 				FC03DB2F2AFD837900A1572C /* ProgressSpinnerDelegate.swift in Sources */,
-				FC03DB3A2AFDFEC200A1572C /* ConversationTableViewCell.swift in Sources */,
+				FC03DB3A2AFDFEC200A1572C /* ConversationsTableViewCell.swift in Sources */,
+				FC03DB542AFF2EFE00A1572C /* SearchResultTableViewCell.swift in Sources */,
 				FC03DB3F2AFED1F600A1572C /* AuthManager.swift in Sources */,
 				FC03DB342AFDB3B400A1572C /* User.swift in Sources */,
 				FC03DB3C2AFE051600A1572C /* Conversation.swift in Sources */,
+				FC03DB502AFF2A9400A1572C /* NewConversationViewController.swift in Sources */,
 				FC2F15D32AFC16B100867C1F /* SceneDelegate.swift in Sources */,
 				FC2F162F2AFCB73900867C1F /* AlertUtil.swift in Sources */,
-				FC03DB382AFDFEAC00A1572C /* ConversationView.swift in Sources */,
+				FC03DB382AFDFEAC00A1572C /* ConversationsView.swift in Sources */,
 				FC03DB362AFDFE9900A1572C /* ConversationsViewController.swift in Sources */,
 				FC2F162D2AFCB6EC00867C1F /* WelcomeView.swift in Sources */,
 				FC03DB242AFD4B1E00A1572C /* LoginView.swift in Sources */,
@@ -435,7 +467,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -498,7 +530,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -605,6 +637,14 @@
 				minimumVersion = 10.17.0;
 			};
 		};
+		FC03DB472AFEFAB600A1572C /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -632,6 +672,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FC03DB092AFD418300A1572C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		FC03DB482AFEFAB600A1572C /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC03DB472AFEFAB600A1572C /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

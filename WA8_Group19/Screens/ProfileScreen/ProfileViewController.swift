@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController {
             self.transitionToLoginScreen()
             return
         }
-        print(uid)
+        // DEBUG: print(uid)
         self.showActivityIndicator()
         DBManager.dbManager.getUser(withUID: uid) { result in
             self.hideActivityIndicator()
@@ -98,8 +98,13 @@ extension ProfileViewController {
 // Transition between screens
 extension ProfileViewController {
     func transitionToLoginScreen() {
-        // TODO: implement transtition
+        // TODO: implement transtition -Done
         print("Transition to log in screen.")
+        let loginViewController = LoginViewController()
+        var viewControllers = self.navigationController!.viewControllers
+        viewControllers.removeAll()
+        viewControllers.append(loginViewController)
+        self.navigationController?.setViewControllers(viewControllers, animated: true)
     }
 }
 

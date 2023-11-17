@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class ConversationTableViewCell: UITableViewCell {
+class ConversationsTableViewCell: UITableViewCell {
+    static let IDENTIFIER: String = "conversations"
     let CELL_BORDER_WIDTH: CGFloat  = 1
     let CELL_BORDER_RADIUS: CGFloat = 10
     let CELL_HEIGHT: CGFloat = 20
@@ -36,13 +38,13 @@ class ConversationTableViewCell: UITableViewCell {
         wrapperCellView.layer.borderWidth = CELL_BORDER_WIDTH // 1
         wrapperCellView.layer.cornerRadius = CELL_BORDER_RADIUS // 8
         nameLabel = UIElementUtil.createAndAddLabel(to: wrapperCellView,
-                                                    text: "Default Name",
+                                                    text: "Name",
                                                     fontSize: Constants.FONT_REGULAR,
                                                     isCenterAligned: false,
                                                     isBold: true,
                                                     textColor: UIColor.black)
         timeLabel = UIElementUtil.createAndAddLabel(to: wrapperCellView,
-                                                    text: "Default Time",
+                                                    text: "",
                                                     fontSize: Constants.FONT_SMALL,
                                                     isCenterAligned: false,
                                                     isBold: false,
@@ -58,9 +60,29 @@ class ConversationTableViewCell: UITableViewCell {
                                                            color: .link)
     }
     
-    func config(with model: Conversation) {
+    func config(with model: Conversation, with thisUser: FirebaseAuth.User) {
         // TODO: config the cell
+        let thatUserId = model.participantIds.filter { $0 != thisUser.uid}[0]
+        // Retrieve User object of thatUser
+        DBManager.dbManager.getUser(withUID: thatUserId) { result in
+            switch result {
+            case .success(let thatUser):
+                self.nameLabel.text = "\(thatUser.displayName)"
+                if model.lastMessageTimestamp != nil {
+                    self.timeLabel.text = "\(DateFormatter.formatDate(model.lastMessageTimestamp))"
+                }
+                if model.lastMessageText != nil {
+                    self.lastMessageLabel.text = "\(model.lastMessageText ?? "No message found.")"
+                } else {
+                    self.lastMessageLabel.text = "No message found."
+                    self.lastMessageLabel.lineBreakMode = .byTruncatingTail
+                }
+            case .failure(let error):
+                print("Error retrieving user: \(error.localizedDescription)")
+            }
+        }
     }
+    
     
     func initConstraints(){
         NSLayoutConstraint.activate([
@@ -87,7 +109,8 @@ class ConversationTableViewCell: UITableViewCell {
             lastMessageLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_SMALL),
             lastMessageLabel.leadingAnchor.constraint(equalTo: timeLabel.leadingAnchor),
             lastMessageLabel.heightAnchor.constraint(equalToConstant: CELL_HEIGHT),
-            lastMessageLabel.widthAnchor.constraint(lessThanOrEqualTo: nameLabel.widthAnchor),
+            lastMessageLabel.trailingAnchor.constraint(equalTo: wrapperCellView.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_TINY),
+            //lastMessageLabel.widthAnchor.constraint(lessThanOrEqualTo: nameLabel.widthAnchor),
             
             wrapperCellView.heightAnchor.constraint(equalToConstant: 3 * (CELL_HEIGHT + Constants.VERTICAL_MARGIN_SMALL) + Constants.VERTICAL_MARGIN_REGULAR)
         ])

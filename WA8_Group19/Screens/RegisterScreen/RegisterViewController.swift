@@ -76,7 +76,7 @@ class RegisterViewController: UIViewController {
                     var user = User(uid: authResult?.user.uid ?? "No UID",
                                     email: email,
                                     displayName: name,
-                                    conversations: [])
+                                    conversationIds: [])
                     user.createdAt = nil
                     self.setNameOfTheUserInFirebaseAuth(user: user)
                 }
