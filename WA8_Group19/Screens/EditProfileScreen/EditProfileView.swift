@@ -1,13 +1,13 @@
 //
-//  ProfileView.swift
+//  EditProfileView.swift
 //  WA8_Group19
 //
-//  Created by Changxu Ren on 11/10/23.
+//  Created by Changxu Ren on 11/16/23.
 //
 
 import UIKit
 
-class ProfileView: UIView {
+class EditProfileView: UIView {
     // image height
     let IMAGE_HEIGHT = CGFloat(100)
     // image width
@@ -15,13 +15,17 @@ class ProfileView: UIView {
     // declare UI elements
     var contentWrapper: UIScrollView!
     var profileImage: UIImageView!
+    
+    var photoPickerButton: UIButton!
+    var photoPickerLabel: UILabel!
+    
     var nameTagLabel: UILabel!
-    var nameLabel: UILabel!
+    var nameTextField: UITextField!
     var emailTagLabel: UILabel!
     var emailLabel: UILabel!
     var memeberSinceTagLabel: UILabel!
     var memberSinceLabel: UILabel!
-    var logoutButton: UIButton!
+    var updateButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,21 +36,24 @@ class ProfileView: UIView {
     
     func setupUIComponents() {
         contentWrapper = UIElementUtil.createAndAddScrollView(to: self)
-        profileImage = UIElementUtil.createAndAddImageView(to: contentWrapper,
-                                                           imageName: "person.circle",
-                                                           color: .black)
+        photoPickerButton = UIElementUtil.createAndAddPhotoButton(to: contentWrapper,
+                                                                  imageName: "camera.fill",
+                                                                  tintColor: .systemGray)
+        photoPickerLabel = UIElementUtil.createAndAddLabel(to: contentWrapper,
+                                                           text: "Edit profile photo",
+                                                           fontSize: Constants.FONT_SMALL,
+                                                           isCenterAligned: true,
+                                                           isBold: true,
+                                                           textColor: .black)
         nameTagLabel = UIElementUtil.createAndAddLabel(to: contentWrapper,
                                                     text: "Name:",
                                                     fontSize: Constants.FONT_REGULAR,
                                                     isCenterAligned: false,
                                                     isBold: false,
                                                     textColor: UIColor.black)
-        nameLabel = UIElementUtil.createAndAddLabel(to: contentWrapper,
-                                                    text: "Name is loading",
-                                                    fontSize: Constants.FONT_REGULAR,
-                                                    isCenterAligned: false,
-                                                    isBold: false,
-                                                    textColor: UIColor.black)
+        nameTextField = UIElementUtil.createAndAddTextField(to: contentWrapper,
+                                                            placeHolder: "Name",
+                                                            keyboardType: .default)
         emailTagLabel = UIElementUtil.createAndAddLabel(to: contentWrapper,
                                                      text: "Email:",
                                                      fontSize: Constants.FONT_REGULAR,
@@ -71,8 +78,8 @@ class ProfileView: UIView {
                                                            isCenterAligned: false,
                                                            isBold: false,
                                                            textColor: UIColor.black)
-        logoutButton = UIElementUtil.createAndAddButton(to: contentWrapper,
-                                                        title: "Log Out",
+        updateButton = UIElementUtil.createAndAddButton(to: contentWrapper,
+                                                        title: "Update",
                                                         color: .link,
                                                         titleColor: .white)
     }
@@ -85,22 +92,28 @@ class ProfileView: UIView {
             contentWrapper.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor),
             contentWrapper.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor),
             
-            profileImage.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
-            profileImage.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
-            profileImage.widthAnchor.constraint(equalToConstant: IMAGE_WIDTH),
-            profileImage.heightAnchor.constraint(equalToConstant: IMAGE_HEIGHT),
+            photoPickerButton.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
+            photoPickerButton.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
+            photoPickerButton.widthAnchor.constraint(equalToConstant: IMAGE_WIDTH),
+            photoPickerButton.heightAnchor.constraint(equalToConstant: IMAGE_HEIGHT),
             
-            nameTagLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: Constants.VERTICAL_MARGIN_REGULAR),
+            photoPickerLabel.topAnchor.constraint(equalTo: photoPickerButton.bottomAnchor, constant: Constants.VERTICAL_MARGIN_SMALL),
+            photoPickerLabel.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
+            photoPickerLabel.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
+            photoPickerLabel.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
+            
+            nameTagLabel.topAnchor.constraint(equalTo: photoPickerLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_REGULAR),
             nameTagLabel.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
             nameTagLabel.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
             nameTagLabel.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
             
-            nameLabel.topAnchor.constraint(equalTo: nameTagLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_SMALL),
-            nameLabel.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
-            nameLabel.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
+            nameTextField.topAnchor.constraint(equalTo: nameTagLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_REGULAR),
+            nameTextField.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
+            nameTextField.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
+            nameTextField.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
+            nameTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            emailTagLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
+            emailTagLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
             emailTagLabel.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
             emailTagLabel.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
             emailTagLabel.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
@@ -120,11 +133,11 @@ class ProfileView: UIView {
             memberSinceLabel.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
             memberSinceLabel.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
             
-            logoutButton.topAnchor.constraint(equalTo: memberSinceLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
-            logoutButton.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
-            logoutButton.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
-            logoutButton.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
-            logoutButton.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor)
+            updateButton.topAnchor.constraint(equalTo: memberSinceLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
+            updateButton.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
+            updateButton.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
+            updateButton.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
+            updateButton.bottomAnchor.constraint(equalTo: contentWrapper.bottomAnchor)
         ])
     }
     

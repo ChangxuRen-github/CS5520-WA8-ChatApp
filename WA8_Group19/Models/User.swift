@@ -13,6 +13,8 @@ struct User: Codable {
     let email: String
     let displayName: String
     var conversationIds: [String]
+    // profileImageURL save the url of the image from firebase storage
+    var profileImageURL: String?
     // Use the property wrapper for automatic handling
     // If createdAt is nil, Firestore will automatically fill it with the server's current timestamp.
     @ServerTimestamp var createdAt: Date?

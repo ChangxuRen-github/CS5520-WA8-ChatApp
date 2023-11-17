@@ -15,7 +15,8 @@ class RegisterView: UIView {
     let IMAGE_WIDTH = CGFloat(110)
     
     var contentWrapper: UIScrollView!
-    var registerImage: UIImageView!
+    var photoPickerButton: UIButton!
+    var photoPickerLabel: UILabel!
     var registerButton: UIButton!
     var nameTextField: UITextField!
     var emailTextField: UITextField!
@@ -31,14 +32,33 @@ class RegisterView: UIView {
     
     func setupUIComponents() {
         contentWrapper = UIElementUtil.createAndAddScrollView(to: self)
-        registerImage = UIElementUtil.createAndAddImageView(to: contentWrapper, imageName: "person.icloud", color: .link)
-        nameTextField = UIElementUtil.createAndAddTextField(to: contentWrapper, placeHolder: "Name", keyboardType: .default)
-        emailTextField = UIElementUtil.createAndAddTextField(to: contentWrapper, placeHolder: "Email", keyboardType: .emailAddress)
-        passwordTextField = UIElementUtil.createAndAddTextField(to: contentWrapper, placeHolder: "Password", keyboardType: .default)
+        photoPickerButton = UIElementUtil.createAndAddPhotoButton(to: contentWrapper,
+                                                                  imageName: "camera.fill",
+                                                                  tintColor: .systemGray)
+        photoPickerLabel = UIElementUtil.createAndAddLabel(to: contentWrapper,
+                                                           text: "Add profile photo",
+                                                           fontSize: Constants.FONT_SMALL,
+                                                           isCenterAligned: true,
+                                                           isBold: true,
+                                                           textColor: .black)
+        nameTextField = UIElementUtil.createAndAddTextField(to: contentWrapper,
+                                                            placeHolder: "Name",
+                                                            keyboardType: .default)
+        emailTextField = UIElementUtil.createAndAddTextField(to: contentWrapper,
+                                                             placeHolder: "Email",
+                                                             keyboardType: .emailAddress)
+        passwordTextField = UIElementUtil.createAndAddTextField(to: contentWrapper,
+                                                                placeHolder: "Password",
+                                                                keyboardType: .default)
         passwordTextField.isSecureTextEntry = true
-        passwordConfirmTextField = UIElementUtil.createAndAddTextField(to: contentWrapper, placeHolder: "Confirm password", keyboardType: .default)
+        passwordConfirmTextField = UIElementUtil.createAndAddTextField(to: contentWrapper,
+                                                                       placeHolder: "Confirm password",
+                                                                       keyboardType: .default)
         passwordConfirmTextField.isSecureTextEntry = true
-        registerButton = UIElementUtil.createAndAddButton(to: contentWrapper, title: "Register", color: .systemGreen, titleColor: .white)
+        registerButton = UIElementUtil.createAndAddButton(to: contentWrapper,
+                                                          title: "Register",
+                                                          color: .systemGreen,
+                                                          titleColor: .white)
     }
     
     func initConstraints() {
@@ -48,12 +68,17 @@ class RegisterView: UIView {
             contentWrapper.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor),
             contentWrapper.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor),
             
-            registerImage.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
-            registerImage.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
-            registerImage.widthAnchor.constraint(equalToConstant: IMAGE_WIDTH),
-            registerImage.heightAnchor.constraint(equalToConstant: IMAGE_HEIGHT),
+            photoPickerButton.topAnchor.constraint(equalTo: contentWrapper.topAnchor, constant: Constants.VERTICAL_MARGIN_LARGE),
+            photoPickerButton.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
+            photoPickerButton.widthAnchor.constraint(equalToConstant: IMAGE_WIDTH),
+            photoPickerButton.heightAnchor.constraint(equalToConstant: IMAGE_HEIGHT),
             
-            nameTextField.topAnchor.constraint(equalTo: registerImage.bottomAnchor, constant: Constants.VERTICAL_MARGIN_REGULAR),
+            photoPickerLabel.topAnchor.constraint(equalTo: photoPickerButton.bottomAnchor, constant: Constants.VERTICAL_MARGIN_SMALL),
+            photoPickerLabel.centerXAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.centerXAnchor),
+            photoPickerLabel.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
+            photoPickerLabel.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),
+            
+            nameTextField.topAnchor.constraint(equalTo: photoPickerLabel.bottomAnchor, constant: Constants.VERTICAL_MARGIN_REGULAR),
             nameTextField.centerXAnchor.constraint(equalTo: contentWrapper.centerXAnchor),
             nameTextField.leadingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.leadingAnchor, constant: Constants.HORIZONTAL_MARGIN_REGULAR),
             nameTextField.trailingAnchor.constraint(equalTo: contentWrapper.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.HORIZONTAL_MARGIN_REGULAR),

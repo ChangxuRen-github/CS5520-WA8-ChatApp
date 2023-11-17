@@ -104,14 +104,14 @@ extension NewConversationViewController: UISearchBarDelegate {
         let lowercasedTerm = term.lowercased()
         // Create a Set from currentUser's conversationIds for efficient lookup
         let currentUser = users.filter { $0.uid == currentUserAuth.uid }[0]
-        let currentUserConversationIds = Set(currentUser.conversationIds)
+        // let currentUserConversationIds = Set(currentUser.conversationIds)
 
         self.results = users.filter { user in
             // Filter out the current logged in user
             if user.uid == currentUser.uid { return false }
 
             // Filter out users who have common conversationIds with currentUser
-            let hasCommonConversationId = user.conversationIds.contains { currentUserConversationIds.contains($0) }
+            // let hasCommonConversationId = user.conversationIds.contains { currentUserConversationIds.contains($0) }
             // C. Ren: if we do not want to show users who already had a conversation with current user enable below line
             // if hasCommonConversationId { return false }
 

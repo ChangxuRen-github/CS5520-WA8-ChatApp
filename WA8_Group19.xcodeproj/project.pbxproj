@@ -45,6 +45,10 @@
 		FC2F162F2AFCB73900867C1F /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F162E2AFCB73900867C1F /* AlertUtil.swift */; };
 		FC2F16312AFCB80E00867C1F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F16302AFCB80E00867C1F /* Constants.swift */; };
 		FC2F16332AFCB85D00867C1F /* UIElementUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F16322AFCB85D00867C1F /* UIElementUtil.swift */; };
+		FC90A9462B073CB200C9A223 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90A9452B073CB200C9A223 /* EditProfileViewController.swift */; };
+		FC90A9482B073CC300C9A223 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90A9472B073CC300C9A223 /* EditProfileView.swift */; };
+		FC90A94B2B07DB2A00C9A223 /* MessageImageViewScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90A94A2B07DB2A00C9A223 /* MessageImageViewScreenViewController.swift */; };
+		FC90A94E2B07DB9600C9A223 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = FC90A94D2B07DB9600C9A223 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +86,9 @@
 		FC2F162E2AFCB73900867C1F /* AlertUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
 		FC2F16302AFCB80E00867C1F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FC2F16322AFCB85D00867C1F /* UIElementUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementUtil.swift; sourceTree = "<group>"; };
+		FC90A9452B073CB200C9A223 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		FC90A9472B073CC300C9A223 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		FC90A94A2B07DB2A00C9A223 /* MessageImageViewScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImageViewScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +99,7 @@
 				FC03DB1C2AFD434100A1572C /* FirebaseAnalytics in Frameworks */,
 				FC03DB1A2AFD42F100A1572C /* FirebaseAuth in Frameworks */,
 				FC03DB1E2AFD434100A1572C /* FirebaseFirestore in Frameworks */,
+				FC90A94E2B07DB9600C9A223 /* SDWebImage in Frameworks */,
 				FC03DB492AFEFAB600A1572C /* MessageKit in Frameworks */,
 				FC03DB222AFD434100A1572C /* FirebaseStorage in Frameworks */,
 				FC03DB202AFD434100A1572C /* FirebaseFirestoreSwift in Frameworks */,
@@ -226,6 +234,8 @@
 		FC2F16232AFCAFB600867C1F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				FC90A9492B07DA7800C9A223 /* MessageImageViewScreen */,
+				FC90A9442B07350B00C9A223 /* EditProfileScreen */,
 				FC03DB4A2AFEFAE100A1572C /* ConversationScreen */,
 				FC2F16292AFCB54500867C1F /* WelcomeScreen */,
 				FC2F16282AFCB24100867C1F /* ConversationsScreen */,
@@ -293,6 +303,23 @@
 			path = WelcomeScreen;
 			sourceTree = "<group>";
 		};
+		FC90A9442B07350B00C9A223 /* EditProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				FC90A9452B073CB200C9A223 /* EditProfileViewController.swift */,
+				FC90A9472B073CC300C9A223 /* EditProfileView.swift */,
+			);
+			path = EditProfileScreen;
+			sourceTree = "<group>";
+		};
+		FC90A9492B07DA7800C9A223 /* MessageImageViewScreen */ = {
+			isa = PBXGroup;
+			children = (
+				FC90A94A2B07DB2A00C9A223 /* MessageImageViewScreenViewController.swift */,
+			);
+			path = MessageImageViewScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -316,6 +343,7 @@
 				FC03DB1F2AFD434100A1572C /* FirebaseFirestoreSwift */,
 				FC03DB212AFD434100A1572C /* FirebaseStorage */,
 				FC03DB482AFEFAB600A1572C /* MessageKit */,
+				FC90A94D2B07DB9600C9A223 /* SDWebImage */,
 			);
 			productName = WA8_Group19;
 			productReference = FC2F15CD2AFC16B100867C1F /* WA8_Group19.app */;
@@ -348,6 +376,7 @@
 			packageReferences = (
 				FC03DB092AFD418300A1572C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				FC03DB472AFEFAB600A1572C /* XCRemoteSwiftPackageReference "MessageKit" */,
+				FC90A94C2B07DB9600C9A223 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = FC2F15CE2AFC16B100867C1F /* Products */;
 			projectDirPath = "";
@@ -377,6 +406,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC90A9482B073CC300C9A223 /* EditProfileView.swift in Sources */,
+				FC90A9462B073CB200C9A223 /* EditProfileViewController.swift in Sources */,
 				FC03DB522AFF2AA600A1572C /* NewConversationView.swift in Sources */,
 				FC03DB2A2AFD4B5000A1572C /* RegisterView.swift in Sources */,
 				FC03DB262AFD4B3000A1572C /* LoginViewController.swift in Sources */,
@@ -394,6 +425,7 @@
 				FC03DB542AFF2EFE00A1572C /* SearchResultTableViewCell.swift in Sources */,
 				FC03DB3F2AFED1F600A1572C /* AuthManager.swift in Sources */,
 				FC03DB342AFDB3B400A1572C /* User.swift in Sources */,
+				FC90A94B2B07DB2A00C9A223 /* MessageImageViewScreenViewController.swift in Sources */,
 				FC03DB3C2AFE051600A1572C /* Conversation.swift in Sources */,
 				FC03DB502AFF2A9400A1572C /* NewConversationViewController.swift in Sources */,
 				FC2F15D32AFC16B100867C1F /* SceneDelegate.swift in Sources */,
@@ -645,6 +677,14 @@
 				minimumVersion = 4.2.0;
 			};
 		};
+		FC90A94C2B07DB9600C9A223 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.18.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -677,6 +717,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FC03DB472AFEFAB600A1572C /* XCRemoteSwiftPackageReference "MessageKit" */;
 			productName = MessageKit;
+		};
+		FC90A94D2B07DB9600C9A223 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC90A94C2B07DB9600C9A223 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

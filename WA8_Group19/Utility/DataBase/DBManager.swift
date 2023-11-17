@@ -9,37 +9,84 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 final class DBManager {
     // Constants
     let CONVERSATIONS_COLLECTION = "conversations"
     let MESSAGES_SUBCOLLECTION = "messages"
     let USER_COLLECTION = "Users"
+    let USER_PROFILE_IMAGE = "UserProfileImages"
     
     // A public share dbManager instance
     public static let dbManager = DBManager()
     
     // Maintain a reference to the database
     public let database = Firestore.firestore()
+    
+    // Maintain a reference to firebase storage
+    public let storage = Storage.storage()
 
 }
 
 // User management
 extension DBManager {
     // Add a new user to the database
-    public func addUser(with user: User, completion: @escaping (Bool) -> Void) {
-        do {
-            try database.collection(USER_COLLECTION).document(user.uid).setData(from: user) { error in
-                if let error = error {
+    public func addUser(with user: User, profileImage: UIImage, completion: @escaping (Bool) -> Void) {
+        uploadProfileImage(profileImage, userId: user.uid) { result in
+            switch result {
+            case .success(let imageUrl):
+                var updatedUser = user
+                updatedUser.profileImageURL = imageUrl
+
+                do {
+                    try self.database.collection(self.USER_COLLECTION).document(user.uid).setData(from: updatedUser) { error in
+                        if let error = error {
+                            print("Error: writing user to firestore failed with \(error)")
+                            completion(false)
+                        } else {
+                            completion(true)
+                        }
+                    }
+                } catch let error {
                     print("Error: writing user to firestore failed with \(error)")
                     completion(false)
-                } else {
-                    completion(true)
                 }
+
+            case .failure(let error):
+                print("Error: Uploading image failed with \(error)")
+                completion(false)
             }
-        } catch let error {
-            print("Error: writing user to firestore failed with \(error)")
-            completion(false)
+        }
+    }
+    
+    // Update user profile's display name and profile image
+    public func updateUser(user: User, profileImage: UIImage, completion: @escaping (Bool) -> Void) {
+        uploadProfileImage(profileImage, userId: user.uid) { result in
+            switch result {
+            case .success(let imageUrl):
+                var updatedUser = user
+                updatedUser.profileImageURL = imageUrl
+
+                // Update the user data in Firestore
+                do {
+                    try self.database.collection(self.USER_COLLECTION).document(user.uid).setData(from: updatedUser, merge: true) { error in
+                        if let error = error {
+                            print("Error: updating user in Firestore failed with \(error)")
+                            completion(false)
+                        } else {
+                            completion(true)
+                        }
+                    }
+                } catch let error {
+                    print("Error: updating user in Firestore failed with \(error)")
+                    completion(false)
+                }
+
+            case .failure(let error):
+                print("Error: Uploading profile image failed with \(error)")
+                completion(false)
+            }
         }
     }
     
@@ -231,5 +278,53 @@ extension DBManager {
                 completion(true)
             }
         }
+    }
+}
+
+// firebase storage: image management
+extension DBManager {
+    private func uploadProfileImage(_ image: UIImage, userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        if let imageData = image.jpegData(compressionQuality: 80) {
+            let storageRef = storage.reference()
+            let imagesRepo = storageRef.child(USER_PROFILE_IMAGE)
+            let imageRef = imagesRepo.child("\(userId).jpg")
+            
+            imageRef.putData(imageData, metadata: nil) { metadata, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                imageRef.downloadURL { url, error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else if let url = url {
+                        completion(.success(url.absoluteString))
+                    }
+                }
+            }
+        }
+    }
+    
+    public func fetchProfileImage(fromURL urlString: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(UIImage(systemName: "person.circle")) // Return default image if URL is invalid
+            return
+        }
+
+        // Create a data task to fetch the image data
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Error fetching image: \(error)")
+                    completion(UIImage(systemName: "person.circle")) // Return default image on error
+                } else if let data = data, let image = UIImage(data: data) {
+                    completion(image) // Return the fetched image
+                } else {
+                    completion(UIImage(systemName: "person.circle")) // Return default image if no data or unable to create image
+                }
+            }
+        }
+        task.resume()
     }
 }

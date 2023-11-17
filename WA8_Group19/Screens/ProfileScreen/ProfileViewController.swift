@@ -15,6 +15,12 @@ class ProfileViewController: UIViewController {
     // spinner
     let childProgressView = ProgressSpinnerViewController()
     
+    // current user
+    var currentUser: User?
+    
+    // current image
+    var currentProfileImage: UIImage?
+    
     override func loadView() {
         view = profileView
     }
@@ -33,6 +39,10 @@ class ProfileViewController: UIViewController {
         ]
         navigationController?.navigationBar.titleTextAttributes = titleAttributes
         title = "Your Profile"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(onEditButtonTapped))
     }
     
     func getProfile() {
@@ -45,13 +55,26 @@ class ProfileViewController: UIViewController {
         }
         // DEBUG: print(uid)
         self.showActivityIndicator()
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
         DBManager.dbManager.getUser(withUID: uid) { result in
             self.hideActivityIndicator()
             switch result {
             case .success(let user):
                 print("User retrieved: \(user)")
-                self.displayProfile(with: user)
-
+                // User retrieved, then we fetch profile image from firebase storage
+                self.showActivityIndicator()
+                DBManager.dbManager.fetchProfileImage(fromURL: user.profileImageURL ?? "") { fetchedImage in
+                    self.hideActivityIndicator()
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    if let image = fetchedImage {
+                        self.displayProfile(with: user, with: image)
+                    } else {
+                        AlertUtil.showErrorAlert(viewController: self,
+                                                 title: "Error!",
+                                                 errorMessage: "Failed to retrieve your profile photo.")
+                    }
+                }
             case .failure(let error):
                 print("Error retrieving user: \(error.localizedDescription)")
                 AlertUtil.showErrorAlert(viewController: self,
@@ -61,10 +84,13 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func displayProfile(with user: User) {
+    func displayProfile(with user: User, with profileImage: UIImage) {
+        self.currentUser = user
+        self.currentProfileImage = profileImage
         profileView.nameLabel.text = "\(user.displayName)"
         profileView.emailLabel.text = "\(user.email)"
         profileView.memberSinceLabel.text = "\(DateFormatter.formatDate(user.createdAt))"
+        profileView.profileImage.image = profileImage
     }
 }
 
@@ -92,6 +118,16 @@ extension ProfileViewController {
                                          errorMessage: "Error: Sign out failed: \(error.localizedDescription)")
             }
         }
+    }
+    
+    @objc func onEditButtonTapped() {
+        // TODO: edit init() and initialize edit profile view controller here
+        guard let currentUser = self.currentUser, let currentProfileImage = self.currentProfileImage else {
+            print("User information retrieved failed.")
+            return
+        }
+        let editProfileViewController = EditProfileViewController(with: currentUser, with: currentProfileImage)
+        navigationController?.pushViewController(editProfileViewController, animated: true)
     }
 }
 
